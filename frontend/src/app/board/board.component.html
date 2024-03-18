@@ -1,5 +1,10 @@
 <div class="row">
-    <div class="word-content">
-        {{wordData.word}}
-    </div>
+    @if(!isGameStarted) {
+        <div class="game-not-started-container">
+            <h1>Naciśnij SPACE, aby rozpocząć grę!</h1>
+        </div>
+    }
+
+
+
 </div>

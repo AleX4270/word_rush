@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { LettersData, WordData } from "../shared/types/word.types";
 
 @Component({
@@ -9,6 +9,7 @@ import { LettersData, WordData } from "../shared/types/word.types";
     styleUrl: './board.component.scss'
 })
 export class BoardComponent {
+    public isGameStarted: boolean = false;
     public lettersData: LettersData = {} as LettersData;
     public wordData: WordData = {} as WordData;
     constructor() {
@@ -16,7 +17,13 @@ export class BoardComponent {
         this.wordData.word = 'word';
     }
 
-
+    @HostListener('window:keydown', ['$event'])
+    public handleStartGame(event: KeyboardEvent) {
+        if(event.code === 'Space') {
+            console.log('game started!');
+            this.isGameStarted = true;
+        }
+    }
 
 
 }
