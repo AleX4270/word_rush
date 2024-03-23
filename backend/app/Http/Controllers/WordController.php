@@ -12,14 +12,29 @@ class WordController extends Controller {
         $this->wordService = $wordService;
     }
 
-    public function get(Request $request) {
-        $params = $request->input('params');
+    public function letters(Request $request) {
+        $params = [
+            'secondsElapsed' => $request->input('secondsElapsed')
+        ];
 
-        $wordData = $this->wordService->get($params);
+        $data = $this->wordService->getLetters($params);
 
         return response()->json([
             'status' => 'success',
-            'data' => $wordData
+            'data' => $data
+        ], 200);
+    }
+
+    public function check(Request $request, int $id) {
+        $params = [
+            'word' => $request->input('word')
+        ];
+
+        $data = $this->wordService->checkWord($params, $id);
+
+        return response()->json([
+            'status' => 'success',
+            'data' => $data
         ], 200);
     }
 }

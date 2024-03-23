@@ -4,28 +4,41 @@ namespace App\Services;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use App\Models\Word;
 
 class WordService {
 
-    public function __construct() {
+    public function __construct() {}
 
-    }
+    public function getLetters(array $params) {
+        $randomWord = Word::query()
+            ->inRandomOrder()
+            ->first();
 
-    public function get(array $params) {
-        $randomWord = DB::table('word')->inRandomOrder()->first();
         $randomWordLetters = str_split($randomWord->content);
 
         if(count($randomWordLetters) < 1) {
             throw new ModelNotFoundException('Word not found');
         }
 
-        //Save downloaded word in user related db table row so it can be verified later.
-
         $hiddenLettersCount = $randomWord->character_count - $params['secondsElapsed'];
         $wordWithHiddenLetters = $this->hideRandomLetters($randomWordLetters, $hiddenLettersCount);
         return [
-            'count' => count($randomWordLetters),
-            'items' => $wordWithHiddenLetters
+            'wordId' => $randomWord->id, //This cannot be transferred with letters - it's temporary
+            'letters' => $wordWithHiddenLetters
+        ];
+    }
+
+    public function checkWord(array $params, int $wordId) {
+        $generatedWord = Word::query()->select(['id', 'content'])
+            ->where('id', $wordId)
+            ->firstOrFail();
+
+        $isGuessCorrect = !empty($params['word']) &&
+            (strtolower(trim($params['word'])) === strtolower($generatedWord->content));
+
+        return [
+            'isValid' => $isGuessCorrect
         ];
     }
 

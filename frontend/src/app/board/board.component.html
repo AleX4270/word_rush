@@ -1,10 +1,29 @@
 <div class="row">
-    @if(!isGameStarted) {
+    @if(!isGameStarted && !isWordLettersDataLoaded) {
         <div class="game-not-started-container">
             <h1>Naciśnij SPACE, aby rozpocząć grę!</h1>
         </div>
     }
 
-    <h1>{{counter}}</h1>
+    @if(isWordLettersDataLoaded) {
+        <div class="letters-container d-flex justify-content-center">
+            @for(letter of lettersData.letters; track letter) {
+                <h1 class="ms-5">{{letter}}</h1>
+            } @empty {
+                <li>There are no items.</li>
+            }
+        </div>
+
+        <div class="answer-container d-flex flex-column justify-content-center align-items-center mt-5">
+            <input type="text" id="guessed-word" [(ngModel)]="guessedWord">
+
+            <button (click)="checkWordCorrectness()"
+                    class="btn btn-primary check-word-btn text-uppercase fw-bold mt-4">Zgaduj!</button>
+        </div>
+    } @else {
+        <h1>{{counter}}</h1>
+    }
+
+
 
 </div>
