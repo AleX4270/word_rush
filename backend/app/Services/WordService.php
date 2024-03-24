@@ -10,7 +10,7 @@ class WordService {
 
     public function __construct() {}
 
-    public function getLetters(array $params) {
+    public function getLetters(int $secondsElapsed) {
         $randomWord = Word::query()
             ->inRandomOrder()
             ->first();
@@ -21,10 +21,10 @@ class WordService {
             throw new ModelNotFoundException('Word not found');
         }
 
-        $hiddenLettersCount = $randomWord->character_count - $params['secondsElapsed'];
+        $hiddenLettersCount = strlen($randomWord->content) - $secondsElapsed;
         $wordWithHiddenLetters = $this->hideRandomLetters($randomWordLetters, $hiddenLettersCount);
         return [
-            'wordId' => $randomWord->id, //This cannot be transferred with letters - it's temporary
+            'wordId' => $randomWord->id,
             'letters' => $wordWithHiddenLetters
         ];
     }
@@ -42,16 +42,14 @@ class WordService {
         ];
     }
 
-    private function hideRandomLetters(array $wordLetters, int $hiddenLettersCount) {
-        $randomIndex = 0;
+    public function hideRandomLetters(array $wordLetters, int $hiddenLettersCount) {
         $generatedIndexes = [];
         for($i = 0; $i < $hiddenLettersCount; $i++) {
-            $generatedIndexes[$i] = [];
-            while(!in_array($randomIndex, $generatedIndexes[$i])) {
+            $randomIndex = rand(0, count($wordLetters) - 1);
+            while(in_array($randomIndex, $generatedIndexes)) {
                 $randomIndex = rand(0, count($wordLetters) - 1);
-                $generatedIndexes[$i][] = $randomIndex;
             }
-
+            $generatedIndexes[] = $randomIndex;
 
             $wordLetters[$randomIndex] = '_';
         }

@@ -13,11 +13,9 @@ class WordController extends Controller {
     }
 
     public function letters(Request $request) {
-        $params = [
-            'secondsElapsed' => $request->input('secondsElapsed')
-        ];
+        $secondsElapsed = $request->input('seconds');
 
-        $data = $this->wordService->getLetters($params);
+        $data = $this->wordService->getLetters($secondsElapsed);
 
         return response()->json([
             'status' => 'success',

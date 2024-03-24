@@ -19,10 +19,14 @@ export class BoardComponent {
 
     public isGameStarted: boolean = false;
     public isWordLettersDataLoaded: boolean = false;
+    public isWordDataLoading: boolean = false;
+    public isWordValidated: boolean = false;
+    public isGuessCorrect: boolean = false;
+
     public lettersData: LettersData = {} as LettersData;
     public counter: number = 0;
-    public isWordDataLoading: boolean = false;
     public guessedWord: string = '';
+
 
     constructor(
         private readonly wordService: WordService
@@ -30,7 +34,7 @@ export class BoardComponent {
 
     @HostListener('window:keydown', ['$event'])
     public handleStartGame(event: KeyboardEvent) {
-        if(event.code !== 'Space' || this.isWordDataLoading) return;
+        if(event.code !== 'Space' || this.isWordDataLoading || this.isWordLettersDataLoaded) return;
 
         if(!this.isGameStarted) {
             this.startCounter();
@@ -43,14 +47,17 @@ export class BoardComponent {
     }
 
     private getWordData(): void {
+        console.log(this.counter);
         this.isWordDataLoading = true;
-        this.wordService.getLettersData({secondsElapsed: this.counter}).subscribe({
+        this.wordService.getLettersData(this.counter).subscribe({
             next: (response) => {
                 this.lettersData = response.data;
                 this.isWordLettersDataLoaded = true;
+                this.isWordDataLoading = false;
                 console.log(this.lettersData);
             },
             error: (error) => {
+                this.isWordDataLoading = false;
                 console.error(error);
             },
         });
@@ -64,12 +71,22 @@ export class BoardComponent {
 
         this.wordService.checkWordCorrectness(data).subscribe({
             next: (response) => {
+                this.isGuessCorrect = response.data.isValid;
+                this.isWordValidated = true;
                 console.log(response.data.isValid);
             },
             error: (error) => {
                 console.error(error);
+                this.isWordValidated = true;
             },
         });
+    }
+
+    public resetGame(): void {
+        this.counter = 0;
+        this.isGameStarted = false;
+        this.isWordLettersDataLoaded = false;
+        this.isWordValidated = false;
     }
 
     public startCounter(): void {

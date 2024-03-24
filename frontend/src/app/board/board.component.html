@@ -1,11 +1,20 @@
 <div class="row">
-    @if(!isGameStarted && !isWordLettersDataLoaded) {
-        <div class="game-not-started-container">
+    @if(!isGameStarted && !isWordLettersDataLoaded && !isWordValidated) {
+        <div class="game-not-started-container d-flex flex-column justify-content-center align-items-center">
             <h1>Naciśnij SPACE, aby rozpocząć grę!</h1>
+
+            <button routerLink="/"
+                    class="standard-button text-uppercase fw-bold mt-4">Powrót</button>
         </div>
     }
 
-    @if(isWordLettersDataLoaded) {
+    @if(isGameStarted) {
+        <div class="game-started-container">
+            <h1>{{counter}}</h1>
+        </div>
+    }
+
+    @if(isWordLettersDataLoaded && !isWordValidated) {
         <div class="letters-container d-flex justify-content-center">
             @for(letter of lettersData.letters; track letter) {
                 <h1 class="ms-5">{{letter}}</h1>
@@ -18,10 +27,21 @@
             <input type="text" id="guessed-word" [(ngModel)]="guessedWord">
 
             <button (click)="checkWordCorrectness()"
-                    class="btn btn-primary check-word-btn text-uppercase fw-bold mt-4">Zgaduj!</button>
+                    class="standard-button text-uppercase fw-bold mt-4">Zgaduj!</button>
         </div>
-    } @else {
-        <h1>{{counter}}</h1>
+    }
+
+
+
+    @if(isWordValidated) {
+        <div class="d-flex flex-column justify-content-center align-items-center">
+            <h1>Podane przez Ciebie słowo:</h1>
+            <h2>{{guessedWord}}</h2>
+            <h1>Było {{isGuessCorrect ? 'poprawne' : 'nieprawidłowe'}}</h1>
+
+            <button (click)="resetGame()"
+                    class="standard-button text-uppercase fw-bold mt-4">Jeszcze raz!</button>
+        </div>
     }
 
 

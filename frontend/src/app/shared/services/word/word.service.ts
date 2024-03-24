@@ -9,8 +9,8 @@ import { LettersResponse, WordCheckResponse } from "../../types/word.types";
 })
 export class WordService extends RestService {
 
-    public getLettersData(params: any): Observable<LettersResponse> {
-        return this.http.get<LettersResponse>(`${environment.backendUrl}/api/words/letters?params=${this.getParamsFromObject(params)}`);
+    public getLettersData(secondsElapsed: number): Observable<LettersResponse> {
+        return this.http.get<LettersResponse>(`${environment.backendUrl}/api/words/letters?seconds=${secondsElapsed}`);
     }
 
     public checkWordCorrectness(data: any): Observable<WordCheckResponse> {
