@@ -1,6 +1,7 @@
 export interface LettersData {
     wordId: number,
     letters: string[],
+    hiddenLettersCount: number,
 }
 
 export interface WordCheckData {

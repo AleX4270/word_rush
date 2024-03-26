@@ -17,10 +17,10 @@ import { FormsModule } from "@angular/forms";
 export class BoardComponent {
     private intervalId!: number;
 
-    public isGameStarted: boolean = false;
-    public isWordLettersDataLoaded: boolean = false;
+    public isCounterStarted: boolean = false;
+    public isWordLoaded: boolean = false;
     public isWordDataLoading: boolean = false;
-    public isWordValidated: boolean = false;
+    public isWordCorrectnessValidated: boolean = false;
     public isGuessCorrect: boolean = false;
 
     public lettersData: LettersData = {} as LettersData;
@@ -34,15 +34,13 @@ export class BoardComponent {
 
     @HostListener('window:keydown', ['$event'])
     public handleStartGame(event: KeyboardEvent) {
-        if(event.code !== 'Space' || this.isWordDataLoading || this.isWordLettersDataLoaded) return;
+        if(event.code !== 'Space' || this.isWordDataLoading || this.isWordLoaded) return;
 
-        if(!this.isGameStarted) {
+        if(!this.isCounterStarted) {
             this.startCounter();
-            this.isGameStarted = true;
         }
         else {
             this.stopCounter();
-            this.isGameStarted = false;
         }
     }
 
@@ -52,8 +50,13 @@ export class BoardComponent {
         this.wordService.getLettersData(this.counter).subscribe({
             next: (response) => {
                 this.lettersData = response.data;
-                this.isWordLettersDataLoaded = true;
                 this.isWordDataLoading = false;
+                this.isWordLoaded = true;
+
+                if(this.lettersData.hiddenLettersCount < 1) {
+                    this.isWordCorrectnessValidated = true;
+                    this.isGuessCorrect = false;
+                }
                 console.log(this.lettersData);
             },
             error: (error) => {
@@ -72,25 +75,25 @@ export class BoardComponent {
         this.wordService.checkWordCorrectness(data).subscribe({
             next: (response) => {
                 this.isGuessCorrect = response.data.isValid;
-                this.isWordValidated = true;
+                this.isWordCorrectnessValidated = true;
                 console.log(response.data.isValid);
             },
             error: (error) => {
                 console.error(error);
-                this.isWordValidated = true;
+                this.isWordCorrectnessValidated = true;
             },
         });
     }
 
     public resetGame(): void {
         this.counter = 0;
-        this.isGameStarted = false;
-        this.isWordLettersDataLoaded = false;
-        this.isWordValidated = false;
+        this.isWordLoaded = false;
+        this.isWordCorrectnessValidated = false;
     }
 
     public startCounter(): void {
         this.counter = 0;
+        this.isCounterStarted = true;
         this.intervalId = setInterval(() => {
             this.counter++;
         }, 1000);
@@ -98,6 +101,7 @@ export class BoardComponent {
 
     public stopCounter(): void {
         clearInterval(this.intervalId);
+        this.isCounterStarted = false;
         this.getWordData();
     }
 }

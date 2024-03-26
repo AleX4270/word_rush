@@ -1,5 +1,5 @@
 <div class="row">
-    @if(!isGameStarted && !isWordLettersDataLoaded && !isWordValidated) {
+    @if(!isCounterStarted && !isWordLoaded && !isWordCorrectnessValidated) {
         <div class="game-not-started-container d-flex flex-column justify-content-center align-items-center">
             <h1>Naciśnij SPACE, aby rozpocząć grę!</h1>
 
@@ -8,13 +8,13 @@
         </div>
     }
 
-    @if(isGameStarted) {
+    @if(isCounterStarted) {
         <div class="game-started-container">
             <h1>{{counter}}</h1>
         </div>
     }
 
-    @if(isWordLettersDataLoaded && !isWordValidated) {
+    @if(isWordLoaded && !isWordCorrectnessValidated) {
         <div class="letters-container d-flex justify-content-center">
             @for(letter of lettersData.letters; track letter) {
                 <h1 class="ms-5">{{letter}}</h1>
@@ -33,17 +33,14 @@
 
 
 
-    @if(isWordValidated) {
+    @if(isWordCorrectnessValidated) {
         <div class="d-flex flex-column justify-content-center align-items-center">
             <h1>Podane przez Ciebie słowo:</h1>
-            <h2>{{guessedWord}}</h2>
-            <h1>Było {{isGuessCorrect ? 'poprawne' : 'nieprawidłowe'}}</h1>
+            <h2 class="mt-2">{{guessedWord}}</h2>
+            <h1 class="mt-2">Było {{isGuessCorrect ? 'poprawne' : 'nieprawidłowe'}}</h1>
 
             <button (click)="resetGame()"
                     class="standard-button text-uppercase fw-bold mt-4">Jeszcze raz!</button>
         </div>
     }
-
-
-
 </div>

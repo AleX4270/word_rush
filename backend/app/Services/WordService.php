@@ -10,7 +10,7 @@ class WordService {
 
     public function __construct() {}
 
-    public function getLetters(int $secondsElapsed) {
+    public function getLetters(int $secondsElapsed): array {
         $randomWord = Word::query()
             ->inRandomOrder()
             ->first();
@@ -22,14 +22,19 @@ class WordService {
         }
 
         $hiddenLettersCount = strlen($randomWord->content) - $secondsElapsed;
-        $wordWithHiddenLetters = $this->hideRandomLetters($randomWordLetters, $hiddenLettersCount);
+
+        if($hiddenLettersCount > 0) {
+            $wordWithHiddenLetters = $this->hideRandomLetters($randomWordLetters, $hiddenLettersCount);
+        }
+
         return [
             'wordId' => $randomWord->id,
-            'letters' => $wordWithHiddenLetters
+            'letters' => $wordWithHiddenLetters ?? [],
+            'hiddenLettersCount' => $hiddenLettersCount,
         ];
     }
 
-    public function checkWord(array $params, int $wordId) {
+    public function checkWord(array $params, int $wordId): array {
         $generatedWord = Word::query()->select(['id', 'content'])
             ->where('id', $wordId)
             ->firstOrFail();
@@ -42,7 +47,7 @@ class WordService {
         ];
     }
 
-    public function hideRandomLetters(array $wordLetters, int $hiddenLettersCount) {
+    public function hideRandomLetters(array $wordLetters, int $hiddenLettersCount): array {
         $generatedIndexes = [];
         for($i = 0; $i < $hiddenLettersCount; $i++) {
             $randomIndex = rand(0, count($wordLetters) - 1);
