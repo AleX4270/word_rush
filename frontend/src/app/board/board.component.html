@@ -24,7 +24,7 @@
         </div>
 
         <div class="answer-container d-flex flex-column justify-content-center align-items-center mt-5">
-            <input type="text" id="guessed-word" [(ngModel)]="guessedWord">
+            <input type="text" id="guessed-word" [(ngModel)]="guessedWord" placeholder="Podaj wylosowane słowo!">
 
             <button (click)="checkWordCorrectness()"
                     class="standard-button text-uppercase fw-bold mt-4">Zgaduj!</button>

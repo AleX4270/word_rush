@@ -89,6 +89,7 @@ export class BoardComponent {
         this.counter = 0;
         this.isWordLoaded = false;
         this.isWordCorrectnessValidated = false;
+        this.guessedWord = '';
     }
 
     public startCounter(): void {
