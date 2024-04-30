@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from "./shared/components/header/header.component";
 import { FooterComponent } from "./shared/components/footer/footer.component";
-import { provideHttpClient } from "@angular/common/http";
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
   selector: 'app-root',
@@ -13,5 +13,12 @@ import { provideHttpClient } from "@angular/common/http";
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  title = 'frontend';
+    title = 'frontend';
+
+    constructor(
+        private readonly translate: TranslateService)
+    {
+        translate.setDefaultLang('pl');
+        this.translate.use('pl');
+    }
 }

@@ -1,9 +1,18 @@
 <footer class="d-flex justify-content-between align-items-end">
-    <div class="version-container">
+    <div class="version-container d-flex gap-3">
         <p>v.{{appVersion}}</p>
+        <button (click)="changeLanguage()"
+                class="lang-button fw-bold text-decoration-underline align-self-start">
+            @if(currentLanguageSymbol === LANG_PL) {
+                {{ "Footer.changeLanguageToEnglish" | translate }}
+            }
+            @else {
+                {{ "Footer.changeLanguageToPolish" | translate }}
+            }
+        </button>
     </div>
 
     <div class="copyright-container">
-        <p>&copy; {{currentYear}} - All rights reserved</p>
+        <p>&copy; {{currentYear}} - {{ "Footer.rights" | translate }}</p>
     </div>
 </footer>

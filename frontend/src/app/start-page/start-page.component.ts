@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
 import { RouterLink } from "@angular/router";
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-start-page',
   standalone: true,
     imports: [
-        RouterLink
+        RouterLink,
+        TranslateModule
     ],
   templateUrl: './start-page.component.html',
   styleUrl: './start-page.component.scss'

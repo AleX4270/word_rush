@@ -1,0 +1,28 @@
+{
+    "Basic": {
+        "return": "Return"
+    },
+    "Footer": {
+        "rights": "All rights reserved",
+        "changeLanguageToEnglish": "Switch to English version",
+        "changeLanguageToPolish": "Zmień na wersję polską"
+    },
+    "StartPage": {
+        "guessTheLetterRule": "The goal is to guess the word from partially revealed letters.",
+        "timeLeftRule": "More countdown time = more letters revealed.",
+        "gatherPointsRule": "If you guess the word, you earn as many points as there were hidden letters.",
+        "noPointsRule": "If you wait too long and reveal all the letters, you get no points.",
+        "goToGame": "Play"
+    },
+    "Board": {
+        "pressSpaceToStart": "Press SPACE to start the game!",
+        "noItems": "No letters to guess",
+        "guess": "Guess!",
+        "provideTheGuessedWord": "Provide the guessed word",
+        "correct": "correct",
+        "incorrect": "incorrect",
+        "providedWordWas": "The word you provided",
+        "was": "Was",
+        "playAgain": "Play again"
+    }
+}

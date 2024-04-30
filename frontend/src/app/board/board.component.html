@@ -1,10 +1,10 @@
 <div class="row">
     @if(!isCounterStarted && !isWordLoaded && !isWordCorrectnessValidated) {
         <div class="game-not-started-container d-flex flex-column justify-content-center align-items-center">
-            <h1>Naciśnij SPACE, aby rozpocząć grę!</h1>
+            <h1>{{ "Board.pressSpaceToStart" | translate }}</h1>
 
             <button routerLink="/"
-                    class="standard-button text-uppercase fw-bold mt-4">Powrót</button>
+                    class="standard-button text-uppercase fw-bold mt-4">{{ "Basic.return" | translate }}</button>
         </div>
     }
 
@@ -19,15 +19,15 @@
             @for(letter of lettersData.letters; track letter) {
                 <h1 class="ms-5">{{letter}}</h1>
             } @empty {
-                <li>There are no items.</li>
+                <li>{{ "Board.noItems" | translate }}</li>
             }
         </div>
 
         <div class="answer-container d-flex flex-column justify-content-center align-items-center mt-5">
-            <input type="text" id="guessed-word" [(ngModel)]="guessedWord" placeholder="Podaj wylosowane słowo!">
+            <input type="text" id="guessed-word" [(ngModel)]="guessedWord" placeholder="{{'Board.provideTheGuessedWord' | translate}}">
 
             <button (click)="checkWordCorrectness()"
-                    class="standard-button text-uppercase fw-bold mt-4">Zgaduj!</button>
+                    class="standard-button text-uppercase fw-bold mt-4">{{ "Board.guess" | translate }}</button>
         </div>
     }
 
@@ -35,12 +35,12 @@
 
     @if(isWordCorrectnessValidated) {
         <div class="d-flex flex-column justify-content-center align-items-center">
-            <h1>Podane przez Ciebie słowo:</h1>
+            <h1>{{ "Board.providedWordWas" | translate }}:</h1>
             <h2 class="mt-2">{{guessedWord}}</h2>
-            <h1 class="mt-2">Było {{isGuessCorrect ? 'poprawne' : 'nieprawidłowe'}}</h1>
+            <h1 class="mt-2">{{ "Board.was" | translate }} {{"Board." + (isGuessCorrect ? "correct" : "incorrect") | translate}}</h1>
 
             <button (click)="resetGame()"
-                    class="standard-button text-uppercase fw-bold mt-4">Jeszcze raz!</button>
+                    class="standard-button text-uppercase fw-bold mt-4">{{ "Board.playAgain" | translate }}!</button>
         </div>
     }
 </div>

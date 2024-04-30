@@ -8,10 +8,10 @@
     <div class="row h-25 d-flex justify-content-center">
         <div class="col-4 rules mt-3 d-flex flex-column justify-content-between">
             <ol>
-                <li>Celem jest odgadnięcie słowa z częściowo odkrytych liter.</li>
-                <li>Większy czas odliczania = więcej odkrytych liter.</li>
-                <li>Punkty zdobywasz za zakryte litery w odgadniętym słowie.</li>
-                <li>Brak punktów, jeśli odkryjesz wszystkie litery.</li>
+                <li>{{ "StartPage.guessTheLetterRule" | translate }}</li>
+                <li>{{ "StartPage.timeLeftRule" | translate }}</li>
+                <li>{{ "StartPage.gatherPointsRule" | translate }}</li>
+                <li>{{ "StartPage.noPointsRule" | translate }}</li>
             </ol>
         </div>
     </div>
@@ -19,7 +19,7 @@
     <div class="row h-25">
         <div class="col-12 buttons mt-5">
             <button routerLink="/board"
-                    class="standard-button text-uppercase fw-bold">Przejdź do gry</button>
+                    class="standard-button text-uppercase fw-bold">{{ "StartPage.goToGame" | translate }}</button>
         </div>
     </div>
 </div>

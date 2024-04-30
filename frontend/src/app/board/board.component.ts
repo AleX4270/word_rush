@@ -3,13 +3,15 @@ import { LettersData } from "../shared/types/word.types";
 import { WordService } from "../shared/services/word/word.service";
 import { RouterLink } from "@angular/router";
 import { FormsModule } from "@angular/forms";
+import { TranslateModule, TranslateService } from "@ngx-translate/core";
 
 @Component({
     selector: 'app-board',
     standalone: true,
     imports: [
         RouterLink,
-        FormsModule
+        FormsModule,
+        TranslateModule
     ],
     templateUrl: './board.component.html',
     styleUrl: './board.component.scss'
@@ -29,7 +31,8 @@ export class BoardComponent {
 
 
     constructor(
-        private readonly wordService: WordService
+        private readonly wordService: WordService,
+        private readonly translate: TranslateService
     ) {}
 
     @HostListener('window:keydown', ['$event'])
@@ -47,7 +50,7 @@ export class BoardComponent {
     private getWordData(): void {
         console.log(this.counter);
         this.isWordDataLoading = true;
-        this.wordService.getLettersData(this.counter).subscribe({
+        this.wordService.getLettersData(this.counter, this.translate.currentLang).subscribe({
             next: (response) => {
                 this.lettersData = response.data;
                 this.isWordDataLoading = false;
