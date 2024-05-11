@@ -48,7 +48,6 @@ export class BoardComponent {
     }
 
     private getWordData(): void {
-        console.log(this.counter);
         this.isWordDataLoading = true;
         this.wordService.getLettersData(this.counter, this.translate.currentLang).subscribe({
             next: (response) => {

@@ -10,8 +10,12 @@ class WordService {
 
     public function __construct() {}
 
-    public function getLetters(int $secondsElapsed): array {
+    public function getLetters(int $secondsElapsed, string $languageSymbol): array {
         $randomWord = Word::query()
+            ->select(['word.id', 'word.content'])
+            ->join('language as l', 'word.language_id', '=', 'l.id')
+            ->where('l.code', $languageSymbol)
+            ->where('l.is_active', 1)
             ->inRandomOrder()
             ->first();
 
