@@ -9,8 +9,10 @@
     }
 
     @if(isCounterStarted) {
-        <div class="game-started-container">
-            <h1>{{counter}}</h1>
+        <div class="game-started-container text-center">
+            <h1>{{"Board.lettersShownCount" | translate}}:</h1>
+            <h1 class="text-danger">{{counter}}</h1>
+            <h3>{{"Board.pressSpaceToStop" | translate}}</h3>
         </div>
     }
 

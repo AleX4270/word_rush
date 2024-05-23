@@ -8,14 +8,12 @@
         "changeLanguageToPolish": "Zmień na wersję polską"
     },
     "StartPage": {
-        "guessTheLetterRule": "Celem jest odgadnięcie słowa z częściowo odkrytych liter.",
-        "timeLeftRule": "Większy czas odliczania = więcej odkrytych liter.",
-        "gatherPointsRule": "Jeśli odgadniesz słowo, zdobywasz tyle punktów ile było zakrytych liter.",
-        "noPointsRule": "Jeśli poczekasz za długo i odkryjesz wszystkie litery, nie dostajesz punktów.",
+        "rulesMessage": "Celem gry jest odgadnięcie słowa z częściowo odkrytych liter. Im dłużej czekasz, tym więcej liter się odkrywa. Punkty zdobywasz za zakryte litery. Jeśli odkryjesz wszystkie litery, nie dostajesz punktów.",
         "goToGame": "Zagraj"
     },
     "Board": {
         "pressSpaceToStart": "Naciśnij SPACJĘ, aby rozpocząć grę!",
+        "pressSpaceToStop": "Naciśnij SPACJĘ, aby zakończyć odkrywanie liter",
         "noItems": "Brak liter do odgadnięcia",
         "guess": "Zgaduj!",
         "provideTheGuessedWord": "Podaj odgadnięte słowo",
@@ -23,6 +21,7 @@
         "incorrect": "niepoprawne",
         "providedWordWas": "Podane przez Ciebie słowo",
         "was": "Było",
-        "playAgain": "Zagraj jeszcze raz"
+        "playAgain": "Zagraj jeszcze raz",
+        "lettersShownCount": "Liczba pokazanych liter"
     }
 }

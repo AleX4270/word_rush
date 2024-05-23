@@ -11,31 +11,42 @@ class WordService {
     public function __construct() {}
 
     public function getLetters(int $secondsElapsed, string $languageSymbol): array {
-        $randomWord = Word::query()
-            ->select(['word.id', 'word.content'])
-            ->join('language as l', 'word.language_id', '=', 'l.id')
-            ->where('l.code', $languageSymbol)
-            ->where('l.is_active', 1)
-            ->inRandomOrder()
-            ->first();
+        try {
+            $randomWord = Word::query()
+                ->select(['word.id', 'word.content'])
+                ->join('language as l', 'word.language_id', '=', 'l.id')
+                ->where('l.code', $languageSymbol)
+                ->where('l.is_active', 1)
+                ->inRandomOrder()
+                ->first();
 
-        $randomWordLetters = str_split($randomWord->content);
+            $randomWordLetters = str_split($randomWord->content);
 
-        if(count($randomWordLetters) < 1) {
-            throw new ModelNotFoundException('Word not found');
+            if(count($randomWordLetters) < 1) {
+                throw new ModelNotFoundException('Word not found');
+            }
+
+            $hiddenLettersCount = strlen($randomWord->content) - $secondsElapsed;
+
+            if($hiddenLettersCount > 0) {
+                $wordWithHiddenLetters = $this->hideRandomLetters($randomWordLetters, $hiddenLettersCount);
+                $isGuessable = true;
+            }
+            else {
+                $isGuessable = false;
+            }
+
+            return [
+                'wordId' => $randomWord->id,
+                'letters' => $wordWithHiddenLetters ?? [],
+                'hiddenLettersCount' => $hiddenLettersCount,
+                'isGuessable' => $isGuessable
+            ];
         }
-
-        $hiddenLettersCount = strlen($randomWord->content) - $secondsElapsed;
-
-        if($hiddenLettersCount > 0) {
-            $wordWithHiddenLetters = $this->hideRandomLetters($randomWordLetters, $hiddenLettersCount);
+        catch(\Exception $e) {
+            Log::error($e->getMessage());
+            return [];
         }
-
-        return [
-            'wordId' => $randomWord->id,
-            'letters' => $wordWithHiddenLetters ?? [],
-            'hiddenLettersCount' => $hiddenLettersCount,
-        ];
     }
 
     public function checkWord(array $params, int $wordId): array {

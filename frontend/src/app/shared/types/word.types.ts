@@ -2,6 +2,7 @@ export interface LettersData {
     wordId: number,
     letters: string[],
     hiddenLettersCount: number,
+    isGuessable: boolean,
 }
 
 export interface WordCheckData {
