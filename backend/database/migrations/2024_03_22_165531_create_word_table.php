@@ -11,7 +11,7 @@ return new class extends Migration {
     public function up(): void  {
         Schema::create('word', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('language_id')->after('id');
+            $table->unsignedBigInteger('language_id');
             $table->string('content');
             $table->tinyInteger('character_count');
 

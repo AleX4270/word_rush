@@ -1,44 +1,22 @@
-<div class="row">
-    <div class="col-12">
-        <p class="fw-bold">Word Rush</p>
+<div class="row w-100">
+    <div class="col-12 title-container d-flex justify-content-center">
+        <p class="fw-bold title">Word Rush</p>
     </div>
 </div>
 
+<div class="row w-100">
+    <div class="col-4"></div>
+    <div class="col-4 d-flex justify-content-center">
+        <p>{{"StartPage.rulesMessage" | translate}}</p>
+    </div>
+    <div class="col-4"></div>
+</div>
 
+<div class="row w-100">
+    <div class="col-12 d-flex justify-content-center">
+        <button routerLink="/board"
+                class="standard-button text-uppercase fw-bold">{{ "StartPage.goToGame" | translate }}</button>
+    </div>
+</div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!--<div class="row">-->
-<!--    <div class="col-12">-->
-<!--        <p class="fw-bold">Word Rush</p>-->
-
-<!--        <div class="row h-25">-->
-<!--            <div class="col-4"></div>-->
-<!--            <div class="col-4 mt-2 rules d-flex flex-column justify-content-between text-center">-->
-<!--                <p>-->
-<!--                    {{"StartPage.rulesMessage" | translate}}-->
-<!--                </p>-->
-<!--            </div>-->
-<!--            <div class="col-4"></div>-->
-<!--        </div>-->
-
-<!--        <div class="row h-25">-->
-<!--            <div class="col-12 buttons mt-5">-->
-<!--                <button routerLink="/board"-->
-<!--                        class="standard-button text-uppercase fw-bold">{{ "StartPage.goToGame" | translate }}</button>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
+<!--Subject to change. TODO: Add floating animations for the rules.-->

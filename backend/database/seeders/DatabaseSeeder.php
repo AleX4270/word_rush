@@ -6,6 +6,7 @@ use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Database\Seeders\LanguageTableSeeder;
+use Database\Seeders\WordTableSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -21,5 +22,6 @@ class DatabaseSeeder extends Seeder
             'email' => 'none',
         ]);
         $this->call(LanguageTableSeeder::class);
+        $this->call(WordTableSeeder::class);
     }
 }
