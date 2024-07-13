@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {AfterViewInit, Component, inject} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from "./shared/components/header/header.component";
@@ -12,13 +12,12 @@ import { TranslateService } from "@ngx-translate/core";
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
-export class AppComponent {
+export class AppComponent implements AfterViewInit {
     title = 'frontend';
+    private readonly translate: TranslateService = inject(TranslateService);
 
-    constructor(
-        private readonly translate: TranslateService)
-    {
-        translate.setDefaultLang('pl');
+    ngAfterViewInit(): void {
+        this.translate.setDefaultLang('pl');
         this.translate.use('pl');
     }
 }

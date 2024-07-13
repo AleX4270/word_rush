@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterLink } from "@angular/router";
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
@@ -13,12 +13,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
   styleUrl: './start-page.component.scss'
 })
 export class StartPageComponent {
-    constructor(
-        private readonly translate: TranslateService
-    ) {
-        translate.setDefaultLang('pl');
-        this.translate.use('pl');
-    }
+    private readonly translate: TranslateService = inject(TranslateService);
 
     switchLanguage(): void {
         if(this.translate.currentLang == 'pl') {

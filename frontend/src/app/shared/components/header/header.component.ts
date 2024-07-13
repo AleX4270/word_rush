@@ -12,6 +12,6 @@ export class HeaderComponent {
     private readonly router: Router = inject(Router);
 
     redirectToUserDetails(): void {
-        // this.router.navigate()
+        this.router.navigate(['user-details']);
     }
 }
